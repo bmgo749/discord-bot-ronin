@@ -1,0 +1,7 @@
+$nomention
+$cooldown[10s; You are still in cooldown, wait %time% to execute this command]
+$color[21817E]
+$title[Press the button below to access your profile]
+$description[
+Tips : $randomText[You can open the Daily Box by executing the **Ddaily Box** command and have a percentage of getting a rare sword!; If your performance in battle is not good, then type the command **Deat Food** to eat some food in order to regenerate your stamina; You can see the complete command by using the Dhelp command!]]
+$addButton[no;prf;Profile;secondary;no;💎;]

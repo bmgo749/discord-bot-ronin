@@ -1,0 +1,16 @@
+$nomention
+$cooldown[24h; You are still in cooldown period, wait for another %time%]
+<@$username> Has opened the daily box and got...
+<:daily_box:1251037692763050094>
+$editIn[3s; 
+<@$username> Has opened the daily box and got $randomText[<:steelthorn:1250830464634195991>Steel Thorn;<:longsword:1250708838894796842>longsword]!
+
+$if[$randomText[<:steelthorn:1250830464634195991>Steel Thorn;<:longsword:1250708838894796842>longsword]==<:steelthorn:1250830464634195991>Steel Thorn]
+$setUserVar[st;$sum[$getUserVar[st];1]]
+$setUserVar[wp;$sum[$getUserVar[wp];1]]
+$endif
+$if[$randomText[<:steelthorn:1250830464634195991>Steel Thorn;<:longsword:1250708838894796842>longsword]==<:longsword:1250708838894796842>longsword]
+$setUserVar[long;$sum[$getUserVar[long];1]]
+$setUserVar[wp;$sum[$getUserVar[wp];1]]
+$endif
+]

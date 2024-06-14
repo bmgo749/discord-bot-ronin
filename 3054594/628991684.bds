@@ -1,0 +1,12 @@
+$nomention
+
+$if[$getUserVar[long]>0]
+$color[21817E]
+$title[All the swords you have!]
+$description[
+**<:common:1250704344458985522>**<:longsword:1250708838894796842><:shadowslash:1250710011152433224> $getUserVar[long] Longsword `11DMG`
+]
+$elseif[$getUserVar[long]==0]
+$color[FF0400]
+$title[❌ You don't have any sword!]
+$endif

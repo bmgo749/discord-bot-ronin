@@ -1,0 +1,13 @@
+$nomention
+$removeButtons
+$ephemeral
+$color[21817E]
+$title[$username Profile]
+$description[
+<:bonecoin:1250463116429361335> Coin : $getUserVar[coin]
+<:steak:1250427780349296702> Food : $getUserVar[food]
+
+<:Swords:1250449432684663029> Main Sword : $getUserVar[msword]
+<:reputation:1250450138636488776> Reputation : $getUserVar[reput]
+]
+$addButton[no;stats;Stats;secondary;no;💪;]
