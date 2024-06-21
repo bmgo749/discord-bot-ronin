@@ -16,7 +16,7 @@ import apscheduler
 
 TOKEN_OS = "MTI0ODA2OTQ0NDI3ODgxMjc3Ng.Gz3GvH.quD-EJmGJ9Xf4Saqk5wt_Tyn44Cme5-8_NBOvY"
 
-client = commands.Bot(command_prefix= lambda bot, msg:f"<@{bot.user.id}> ", intents=nextcord.Intents.all())
+client = commands.Bot(command_prefix= lambda bot, msg:f"<@{bot.user.id}> ", intents=nextcord.Intents.all(), help_command=None)
 
 client.add_cog(Event(client))
 client.add_cog(InventoryCommand(client))
@@ -36,6 +36,39 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
         embed = Embed(description=f"**You still in cooldown!, wait until the cooldown time is done!**\n\n`Cooldown time = {round(error.retry_after)} second`")
         await ctx.send(embed=embed)
+
+@client.command()
+async def help(ctx):
+    help_message = (
+        f"HELP COMMAND ON RONIN BOT\n\n\n"
+        "Prefix - Tag me! @Ronin\n\n"
+        "ronin - show your stats like attack, hp, lifesteal and more information\n\n"
+        "daily - get some coins and jade per day\n\n"
+        "daily_box - get some equipment per day\n\n"
+        "equip - equip some equipment that you have in your inventory\n\n"
+        "unequip - like equip but its unequip the equipment 🗿\n\n"
+        "inv - show your items like jade, coins, equipment\n\n"
+        "shop - you can buy some equipment per 15 min\n\n"
+        "talent_tree <talent> - show your talents level (<talent> change it either attack or defense)\n\n"
+        "up_talent <talent> <name_talent> - upgrade your own talent! (<talent> change it either attack or defense, <name_talent> name of the talent)\n\n"
+        "create_clan <name> <url_image> <description> - create your own clan! (<name> change it to your name clan, <url_image> change it to your clan image, <description> change it to your clan description!)\n\n"
+        "delete_clan - delete your own clan, only process if you are the leader\n\n"
+        "join_clan <name> - join other clan (<name> change it to name clan that you want to join)\n\n"
+        "leave_clan - leaving your clan\n\n"
+        "search_clan <name> - showing some clan information\n\n"
+        "edit_imageclan <url> - edit your image clan\n\n"
+        "edit_nameclan - edit your name clan\n\n"
+        "edit_description - edit your description clan\n"
+        "leaderboard - show the top rank 1 - 10 about clan exp, and level\n\n"
+        "fight - you can fight the enemy or boss randomly and get some reward\n\n"
+        "start_regeneration - regenerate your hp if low\n\n"
+        "NAME OF TALENT ATTACK OPTION = Tameshigiri, StormSword, Sharpness, Strike, LifestealBlow, LeechEnhance, SwordEnchant, PoisonSword, SwordAgil, FlowSword, "
+        "BloodPierce, SwordPosture, Dissension, Resistance, Talisman, LifeOrbs, Phoenix\n\n"
+        "NAME OF TALENT DEFENSE OPTION = Vitality, VitalPos, Dodge, Scud, Flow, Sturdy, Penet, BlockedSoul, YokaiScroll, HeartsSirit, Hawkeye, Concentrate, "
+        "Acc, StormMove, SteelWill, FireMove, Craziness, Onimusha, Gauge\n\n"
+        "AND DON'T FORGET TO USE THE PREFIX BEFORE USING THE COMMAND TOP! example : @Ronin ronin"
+    )
+    await ctx.send(f"```{help_message}```")
 
 @client.command()
 async def ronin(ctx):

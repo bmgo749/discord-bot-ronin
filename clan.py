@@ -66,6 +66,40 @@ class ClanCommands(commands.Cog):
         cursor.close()
         db.close()
 
+    @commands.command()
+    async def leaderboard(self, ctx):
+        try:
+            db = sqlite3.connect("main.sqlite")
+            cursor = db.cursor()
+
+            cursor.execute("SELECT * FROM clan ORDER BY level DESC, exp DESC LIMIT 10")
+            clans = cursor.fetchall()
+
+            if not clans:
+                await ctx.send("No clans found.")
+                return
+
+            embed = Embed(title="🏆 Clan Leaderboard", color=Color.gold())
+
+            position = 1
+            for clan in clans:
+                leader_id = clan[0]
+                leader = await self.bot.fetch_user(leader_id)
+                embed.add_field(
+                    name=f"{position}. {clan[2]} (Level {clan[5]})",
+                    value=f"**Leader:** {leader.name}\n**Description:** {clan[4]}\n**Experience:** {clan[6]}",
+                    inline=False,
+                )
+                position += 1
+
+            await ctx.send(embed=embed)
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            await ctx.send("An error occurred while executing the command.")
+        finally:
+            cursor.close()
+            db.close()
 
     @commands.command()
     async def join_clan(self, ctx, *, name: str = None):
@@ -463,6 +497,11 @@ class ButtonClan(nextcord.ui.View):
         embed = Embed(title="WELCOME TO TRADING POST CLAN! ⚖️",
                       description=f"**🔰 Welcome to trading post clan, 🍀 in this place you can buy any stuff like valuable stuff, 🌿 legendary stuff or jade or coin. 🏮You can just buy it with ur jade or coin or trade with you equipment! 🎲**",
                       colour=Color.random())
+        embed.add_field(name="<:naginata:1253647561143619696> Naginata Blade", value="`750` **<a:coin2:1249302963042648094> Jade**", inline=False)
+        embed.add_field(name="<:gozen:1253647592772866100> Gozen's Bow", value="`70000` **<a:coin2:1249302963042648094> Coin**", inline=False)
+        embed.add_field(name="<:foxring:1253647911057887383> Blood Fox Ring", value="`475` **<a:coin2:1249302963042648094> Jade**")
+        embed.set_footer(text="FOR NOW YOU CAN'T BUY IT BUT IN THE NEXT UPDATE YOU CAN BUY IT!!!")
+        embed.timestamp = datetime.datetime.now()
         await ctx.response.send_message(embed=embed, ephemeral=True)
         
         db.commit()
