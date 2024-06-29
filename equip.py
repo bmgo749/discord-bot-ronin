@@ -9,20 +9,20 @@ import itertools
 
 EQUIPLIST1 = ["Shura", "Mensen Sword", "Yokai Whirlwind", "Jewel Necklace", "Fire Ring",
                 "Golden Tiger Ring", "Velvet Ring", "Blue Jewel Necklace", "Hell's Necklace", "Apricot Flower Folding Fan",
-                "Blood Pattern Folding Fan", "Hakama Samurai", "Shogun Armor", "Shinobi Armor",
+                "Blood Pattern Folding Fan", "Hakama Samurai", "Shogun Armor",
                 "Traveler Armor"]
 
-EMOJIS = ["<:Shura:1249342778039734354>", "<:Crested:1249342749715595417>", "<:Whirlwind:1249342716366684212>", "<:Kalung1:1249538107389509762>", "<:Cincin2:1249538232161538078>",
-                "<:Cincin3:1249538267364462703>", "<:Cincin1:1249538201862017104>", "<:Kalung3:1249538167573446667>", "<:Kalung2:1249538142114152459>", "<:Kipas2:1249539571905986692>",
-                "<:Kipas1:1249539515291533383>", "<:Hakama:1249348241536057425>", "<:Shogun:1249348180236177478>", "<:Shinobi:1249348208014921840>",
-                "<:Pengembara:1249348267645468702>"]
+EMOJIS = ["<:1_:1255403773086666782>", "<:2_:1249342749715595417>", "<:3_:1249342716366684212>", "<:4_:1249538107389509762>", "<:5_:1255403870658625637>",
+                "<:6_:1249538267364462703>", "<:7_:1249538201862017104>", "<:8_:1255404269197201499>", "<:9_:1255404187680903199>", "<:10:1249539571905986692>",
+                "<:11:1249539515291533383>", "<:12:1255403750080778260>", "<:13:1255403728417193994>",
+                "<:15:1249348267645468702>"]
 
-EQUIPLIST = ["<:Shura:1249342778039734354> Shura", "<:Crested:1249342749715595417> Mensen Sword", "<:Whirlwind:1249342716366684212> Yokai Whirlwind", "<:Kalung1:1249538107389509762> Jewel Necklace", "<:Cincin2:1249538232161538078> Fire Ring",
-                "<:Cincin3:1249538267364462703> Golden Tiger Ring", "<:Cincin1:1249538201862017104> Velvet Ring", "<:Kalung3:1249538167573446667> Blue Jewel Necklace", "<:Kalung2:1249538142114152459> Hell's Necklace", "<:Kipas2:1249539571905986692>Apricot Flower Folding Fan",
-                "<:Kipas1:1249539515291533383> Blood Pattern Folding Fan", "<:Hakama:1249348241536057425> Hakama Samurai", "<:Shogun:1249348180236177478> Shogun Armor", "<:Shinobi:1249348208014921840> Shinobi Armor",
-                "<:Pengembara:1249348267645468702> Traveler Armor"]
+EQUIPLIST = ["<:1_:1255403773086666782> Shura", "<:2_:1249342749715595417> Mensen Sword", "<:3_:1249342716366684212> Yokai Whirlind", "<:4_:1249538107389509762> Jewel Necklace", "<:5_:1255403870658625637> Fire Ring",
+                "<:6_:1249538267364462703> Golden Tiger Ring", "<:7_:1249538201862017104> Velvet Ring", "<:8_:1255404269197201499> Blue Jewel Necklace", "<:9_:1255404187680903199> Hell's Necklace", "<:10:1249539571905986692> Apricot Flower Floding Fan",
+                "<:11:1249539515291533383> Blood Pattern Folding Fan", "<:12:1255403750080778260> Hakama Samurai", "<:13:1255403728417193994> Shogun Armor",
+                "<:15:1249348267645468702> Traveler Armor"]
         
-PRICES = [500, 500, 500, 250, 350, 200, 300, 325, 450, 150, 250, 950, 825, 800, 550]
+PRICES = [3560, 700, 700, 350, 750, 300, 400, 655, 850, 350, 450, 9350, 5670, 1050]
 
 shop_items = random.sample(EQUIPLIST1, 6)
 shop_prices = [PRICES[EQUIPLIST1.index(item)] for item in shop_items]  # Exclude the last empty string
@@ -48,7 +48,7 @@ class Menu(nextcord.ui.View):
         db = sqlite3.connect("main.sqlite")
         cursor = db.cursor()
 
-        cursor.execute(f"SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15 FROM equipment WHERE user_id = {ctx.user.id}")
+        cursor.execute(f"SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot15 FROM equipment WHERE user_id = {ctx.user.id}")
         equip_list = cursor.fetchone()
         try:
             slot1 = equip_list[0]
@@ -64,8 +64,7 @@ class Menu(nextcord.ui.View):
             slot11 = equip_list[10]
             slot12 = equip_list[11]
             slot13 = equip_list[12]
-            slot14 = equip_list[13]
-            slot15 = equip_list[14]
+            slot15 = equip_list[13]
         except:
             await ctx.send("SORRY")
 
@@ -118,37 +117,53 @@ class Menu(nextcord.ui.View):
             elif "Shogun Armor" in selected_item:
                 cursor.execute(f"UPDATE equipment SET slot13 = ? WHERE user_id = ?", (slot13 + 1, ctx.user.id))
                 cursor.execute(f"UPDATE jewelry2 SET coin = ? WHERE user_id = ?", (coin - item_price, ctx.user.id))
-            elif "Shinobi Armor" in selected_item:
-                cursor.execute(f"UPDATE equipment SET slot14 = ? WHERE user_id = ?", (slot14 + 1, ctx.user.id))
-                cursor.execute(f"UPDATE jewelry2 SET coin = ? WHERE user_id = ?", (coin - item_price, ctx.user.id))
             elif "Traveler Armor" in selected_item:
                 cursor.execute(f"UPDATE equipment SET slot15 = ? WHERE user_id = ?", (slot15 + 1, ctx.user.id))
                 cursor.execute(f"UPDATE jewelry2 SET coin = ? WHERE user_id = ?", (coin - item_price, ctx.user.id))
             else:
-                await ctx.message.reply("**🍃YOU DONT HAVE ENOUGH OF COIN!, GET IT FIRST AND BUY THE ITEMS THAT YOU WANT!**")
+                await ctx.send("**🍃YOU DONT HAVE ENOUGH OF COIN!, GET IT FIRST AND BUY THE ITEMS THAT YOU WANT!**")
                 return
             
-            await ctx.message.reply(f"**You get {item_emoji} {selected_item} with price ** `{item_price}` **<a:coin2:1249302963042648094> Ryo Coin**")
+            await ctx.send(f"**You get {item_emoji} {selected_item} with price ** `{item_price}` **<a:coin2:1249302963042648094> Ryo Coin**")
 
             db.commit()
             cursor.close()
             db.close()
 
+cooldowns = {}
 
+def check_cooldown(user_id, command_name, cooldown_seconds):
+    current_time = datetime.datetime.now().timestamp()
+    if user_id not in cooldowns:
+        cooldowns[user_id] = {}
+    user_cooldowns = cooldowns[user_id]
+
+    if command_name in user_cooldowns:
+        last_used = user_cooldowns[command_name]
+        if (current_time - last_used) < cooldown_seconds:
+            return False, cooldown_seconds - (current_time - last_used)
+    
+    user_cooldowns[command_name] = current_time
+    return True, 0
 
 class EquipCommand(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    @commands.cooldown(1, 900, commands.BucketType.user)
-    async def shop(self, ctx):
+    @nextcord.slash_command(name='shop', description='Buy some item in this command!', force_global=bool)
+    async def shop(self, ctx: Interaction):
+
+        is_allowed, retry_after = check_cooldown(ctx.user.id, 'shop', 900)
+        if not is_allowed:
+            embed = Embed(description=f"**You are still on cooldown!**\n\n`Cooldown time = {int(retry_after)} seconds`")
+            await ctx.send(embed=embed, ephemeral=True)
+            return
         
         db = sqlite3.connect("main.sqlite")
         cursor = db.cursor()
 
-        cursor.execute(f"SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15 FROM equipment WHERE user_id = {ctx.author.id}")
+        cursor.execute(f"SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15 FROM equipment WHERE user_id = {ctx.user.id}")
         equip_list = cursor.fetchone()
         try:
             slot1 = equip_list[0]
@@ -174,19 +189,12 @@ class EquipCommand(commands.Cog):
 
         embed = Embed(title="<:scroll:1249924069139157073> EQUIPMENT SHOPS", description="**⛩️ Welcome to the Traveler Market! Here are today's special offer for you. There is six offer good luck for choosing!:**", colour=nextcord.Color.random())
         for index, (emoji, item, price) in enumerate(zip(emojis, shop_items, shop_prices), start=1):
-            embed.add_field(name=f"`{index}`. {emoji} {item}", value=F"**- Price : ** `{price}` <a:coin2:1249302963042648094> **Ryo Coin**\n", inline=False)
+            embed.add_field(name=f"`{index}`. {emoji} {item}", value=F"**- Price : ** `{price}` <:coin:1255419339038003271> **Ryo Coin**\n", inline=False)
             embed.set_footer(text="RYO COIN IS FOR TRADE OR BUY, JADE IS FOR GACHA AND TRADE TOO")
             embed.timestamp = datetime.datetime.now()
         
-        await ctx.message.reply(embed=embed, mention_author=False, view=view)
+        await ctx.send(embed=embed, view=view)
 
         db.commit()
         cursor.close()
         db.close()
-
-    @shop.error
-    async def shop_error(self, ctx, error):
-        if isinstance(error, commands.CommandOnCooldown):
-            embed = Embed(description="**You can use @Ronin shop command in 15 Minutes again!**")
-            embed.timestamp = datetime.datetime.now()
-            await ctx.reply(embed=embed)
