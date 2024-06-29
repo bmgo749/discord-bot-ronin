@@ -15,7 +15,7 @@ from guide import GuideCommands
 import apscheduler
 #MAIN CODE
 
-TOKEN_OS = "MTI0ODA2OTQ0NDI3ODgxMjc3Ng.GafeTQ.nECGJnxQ5qIE6iQuli17k_TkkwYH_6cavL47DU"
+TOKEN_OS = "BOT_TOKEN_LOL"
 
 client = commands.Bot(command_prefix=lambda client, msg:f"<@{client.user.id}> ", help_command=None, default_guild_ids="1250831919936049273")
 
